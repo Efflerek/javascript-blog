@@ -16,7 +16,7 @@ function titleClickHandler(event) {
     /* add class 'active' to the clicked link */
     clickedElement.classList.add('active');
     console.log('clickedElement:', clickedElement);
-   
+
 
     /* remove class 'active' from all articles */
     const activeArticles = document.querySelectorAll('article');
@@ -45,24 +45,35 @@ for (let link of links) {
 }
 
 const ArticleSelector = ('.post'),
-TitleSelector = ('.post-title'),
-TitleListSelector = ('.titles');
+    TitleSelector = ('.post-title'),
+    TitleListSelector = ('.titles');
 
 function generateTitleLinks() {
     console.log('Run generateTitleLinks ');
 
-/* remove contents of titleList */
-const titleList = document.querySelector(TitleListSelector);
-titleList.innerHTML = '';
+    /* remove contents of titleList */
+    const titleList = document.querySelector(TitleListSelector);
+    titleList.innerHTML = '';
 
-/* for each article */
-const articles = document.querySelectorAll(ArticleSelector);
+    /* for each article */
+    const articles = document.querySelectorAll(ArticleSelector);
     let html = '';
-    for(let article of articles){}
-/* read id of each articles and write it to the cons*/
-/* find element with title for each article and write it to cons */
-/* for each article, based on information , make HTML of link and write it in const */
-/* insert HTML to the list of link in the left column */
-
+    for (let article of articles) { }
+    /* read id of each articles and write it to the const*/
+    const articleId = article.getAttribute('id');
+    console.log('Get ID of each articles' + articleId)
+    /* find element with title for each article and write it to const */
+    const articleTitle = article.querySelector(TitleSelector).innerHTML;
+    console.log('Get Title of each articles' + articleTitles)
+    /* for each article, based on information , make HTML of link and write it in const */
+    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    console.log('Generating linkHTML for each article' + linkHTML)
+    /* insert HTML to the list of link in the left column */
+    const sidebar = document.querySelector(#list)
+        list.insertAdjacentHTML(
+        #list.afterbegin,
+        titleList.innerHTML + linkHTML;
+  )
 }
+
 generateTitleLinks();
