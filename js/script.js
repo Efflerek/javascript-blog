@@ -35,7 +35,7 @@ function titleClickHandler(event) {
 
     /* add class 'active' to the correct article */
     targetArticle.classList.add("active");
-    console.log('visible article', targetArticle);
+    console.log('visible article:', targetArticle);
 }
 
 const links = document.querySelectorAll('.titles a');
@@ -43,3 +43,26 @@ const links = document.querySelectorAll('.titles a');
 for (let link of links) {
     link.addEventListener('click', titleClickHandler);
 }
+
+const ArticleSelector = ('.post'),
+TitleSelector = ('.post-title'),
+TitleListSelector = ('.titles');
+
+function generateTitleLinks() {
+    console.log('Run generateTitleLinks ');
+
+/* remove contents of titleList */
+const titleList = document.querySelector(TitleListSelector);
+titleList.innerHTML = '';
+
+/* for each article */
+const articles = document.querySelectorAll(ArticleSelector);
+    let html = '';
+    for(let article of articles){}
+/* read id of each articles and write it to the cons*/
+/* find element with title for each article and write it to cons */
+/* for each article, based on information , make HTML of link and write it in const */
+/* insert HTML to the list of link in the left column */
+
+}
+generateTitleLinks();
