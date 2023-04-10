@@ -49,31 +49,31 @@ const ArticleSelector = ('.post'),
     TitleListSelector = ('.titles');
 
 function generateTitleLinks() {
-    console.log('Run generateTitleLinks ');
+    console.log('Run generateTitleLinks ' + generateTitleLinks);
 
     /* remove contents of titleList */
     const titleList = document.querySelector(TitleListSelector);
     titleList.innerHTML = '';
 
+    /* find all the articles and save them to variable: articles */
     /* for each article */
-    const articles = document.querySelectorAll(ArticleSelector);
+    let articles = document.querySelectorAll(ArticleSelector + customSelector);
     let html = '';
-    for (let article of articles) { }
-    /* read id of each articles and write it to the const*/
-    const articleId = article.getAttribute('id');
-    console.log('Get ID of each articles' + articleId)
-    /* find element with title for each article and write it to const */
-    const articleTitle = article.querySelector(TitleSelector).innerHTML;
-    console.log('Get Title of each articles' + articleTitles)
-    /* for each article, based on information , make HTML of link and write it in const */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log('Generating linkHTML for each article' + linkHTML)
-    /* insert HTML to the list of link in the left column */
-    const sidebar = document.querySelector(#list)
-        list.insertAdjacentHTML(
-        #list.afterbegin,
-        titleList.innerHTML + linkHTML;
-  )
+    for (let article of articles) {
+        /* get the article id */
+        const articleId = article.getAttribute('id');
+        /* find get the title element */
+        const articleTitle = article.querySelector(TitleSelector).innerHTML;
+        console.log('Find Title of each articles' + articleTitle);
+        /* create HTML of the link */
+        const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+        console.log('Generating linkHTML for each article' + linkHTML);
+        /* insert link into titleList */
+        html = html + linkHTML;
+        
+        console.log(html)
+    }
+    titleList.innerHTML = html;
 }
 
 generateTitleLinks();
