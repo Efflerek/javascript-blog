@@ -48,7 +48,7 @@ const ArticleSelector = ('.post'),
     TitleSelector = ('.post-title'),
     TitleListSelector = ('.titles');
 
-function generateTitleLinks() {
+function generateTitleLinks(customSelector = '') {
     console.log('Run generateTitleLinks ' + generateTitleLinks);
 
     /* remove contents of titleList */
@@ -70,10 +70,16 @@ function generateTitleLinks() {
         console.log('Generating linkHTML for each article' + linkHTML);
         /* insert link into titleList */
         html = html + linkHTML;
-        
-        console.log(html)
     }
+
     titleList.innerHTML = html;
+    const links = document.querySelectorAll('.titles a');
+    console.log('links' + links);
+    
+    console.log(html)
+    for(let link of links){
+        link.addEventListener('click', titleClickHandler);
+      }
 }
 
 generateTitleLinks();
