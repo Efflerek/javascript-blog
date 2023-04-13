@@ -38,15 +38,9 @@ function titleClickHandler(event) {
     console.log('visible article:', targetArticle);
 }
 
-const links = document.querySelectorAll('.titles a');
-
-for (let link of links) {
-    link.addEventListener('click', titleClickHandler);
-}
-
-const ArticleSelector = ('.post'),
-    TitleSelector = ('.post-title'),
-    TitleListSelector = ('.titles');
+const articleSelector = ('.post'),
+    titleSelector = ('.post-title'),
+    titleListSelector = ('.titles');
 
 function generateTitleLinks(customSelector = '') {
     console.log('Run generateTitleLinks ' + generateTitleLinks);
