@@ -1,11 +1,11 @@
 'use strict';
-const templates = {
+/*const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
   authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
   tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
   authorsListLink: Handlebars.compile(document.querySelector('#template-authors-list-link').innerHTML)
-};
+};*/
 
 function titleClickHandler(event) {
   event.preventDefault();
@@ -50,76 +50,132 @@ const articleTagsSelector = '.post-tags .list';
 const titleSelector = '.post-title';
 const titleListSelector = '.titles';
 const authorSelector = '.post-author';
+const tagsListSelector = '.tags.list';
+
 
 function generateTitleLinks(customSelector = '') {
-  console.log('Run generateTitleLinks ' + generateTitleLinks);
+console.log('Run generateTitleLinks ' + generateTitleLinks);
 
-  /* remove contents of titleList */
-  const titleList = document.querySelector(titleListSelector);
-  titleList.innerHTML = '';
+/*remove contents of titleList*/
+const titleList = document.querySelector(titleListSelector);
+titleList.innerHTML = '';
 
-  /* find all the articles and save them to variable: articles */
-  /* for each article */
-  const articles = document.querySelectorAll(articleSelector + customSelector);
-  console.log(customSelector);
-  let html = '';
-  for (let article of articles) {
-    /* get the article id */
-    const articleId = article.getAttribute('id');
-    /* find get the title element */
-    const articleTitle = article.querySelector(titleSelector).innerHTML;
-    console.log('Find Title of each articles' + articleTitle);
-    /* create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log('Generating linkHTML for each article' + linkHTML);
-    /* insert link into titleList */
-    html = html + linkHTML;
-  }
-  titleList.innerHTML = html;
-  const links = document.querySelectorAll('.titles a');
-  console.log('links visible' + links);
+/* all the articles and save them to variable: articles /
+/ for each article*/
+const articles = document.querySelectorAll(articleSelector + customSelector);
+console.log(customSelector);
+let html = '';
+for (let article of articles) {
+/*get the article id*/
+const articleId = article.getAttribute('id');
+/*find get the title element*/
+const articleTitle = article.querySelector(titleSelector).innerHTML;
+console.log('Find Title of each articles' + articleTitle);
+/*create HTML of the link*/
+const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+console.log('Generating linkHTML for each article' + linkHTML);
+/*insert link into titleList*/
+html = html + linkHTML;
+}
+titleList.innerHTML = html;
+const links = document.querySelectorAll('.titles a');
+console.log('links visible' + links);
 
-  for (let link of links) {
-    link.addEventListener('click', titleClickHandler);
-  }
+for (let link of links) {
+link.addEventListener('click', titleClickHandler);
+}
 
 }
 
 generateTitleLinks();
 
+function calculateTagsParams(tags){
+
+const params ={ min: 99999, max: 0};
+
+for(let tag in tags){
+if(tags[tag] > params.max){
+params.max = tags[tag];
+}
+
+if(tags[tag] < params.min){
+params.min = tags[tag];
+}
+}
+return params;
+}
+
+const CloudClassCount = 5;
+const CloudClassPrefix = 'tag-size-';
+
+function calculateTagClass(count, params){
+const normalizedCount = count - params.min;
+const normalizedMax = params.max - params.min;
+const percentage = normalizedCount / normalizedMax;
+const classNumber = Math.floor( percentage * (CloudClassCount - 1) + 1 );
+
+return CloudClassPrefix + classNumber;
+}
+
 function generateTags() {
-const  tagsListSelector = '.tags .list';
-  
-  let allTags = {};
-  const articles = document.querySelectorAll(articleSelector);
+/*[NEW] create a new variable allTags with an empty array*/
+let allTags = {};
 
-  for (let article of articles) {
-    const tagWrapper = article.querySelector(articleTagsSelector);
-    let html = '';
-    const articleTags = article.getAttribute('data-tags');
-    const articleTagsArray = articleTags.split(' ');
+/*find all articles*/
+const articles = document.querySelectorAll(articleSelector);
 
-    for (let tag of articleTagsArray) {
-      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-      html += linkHTML;
-      if(!allTags.hasOwnProperty(tag)){
-        allTags[tag] = 1;
-      } else {
-        allTags[tag]++;
-      }
-    }
+/*START LOOP: for every article:*/
+for (let article of articles) {
 
-    tagWrapper.innerHTML = html;
-  }
+/*find tags wrapper*/
+const tagWrapper = article.querySelector(articleTagsSelector);
 
-  const tagList = document.querySelector(tagsListSelector);
-  let allTagsHTML = '';
+/*make html variable with empty string*/
+let html = '';
 
-  for(let tag in allTags){
-    allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ')</a></li>';
-  }
+/*get tags from data-tags attribute*/
+const articleTags = article.getAttribute('data-tags');
 
-  tagList.innerHTML = allTagsHTML;
+/*split tags into array*/
+const articleTagsArray = articleTags.split(' ');
+
+/*START LOOP: for each tag*/
+for (let tag of articleTagsArray) {
+
+/*generate HTML of the link*/
+const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
+
+/*add generated code to html variable*/
+html += linkHTML;
+
+/*[NEW] check if this link is NOT already in allTags*/
+if(!allTags.hasOwnProperty(tag)){
+allTags[tag] = 1;
+} else {
+allTags[tag]++;
+}
+/*END LOOP: for each tag*/
+}
+/*insert HTML of all the links into the tags wrapper*/
+tagWrapper.innerHTML = html;
+}
+/*[NEW] find list of tags in right column*/
+const tagList = document.querySelector(tagsListSelector);
+
+/*[NEW] add html from allTags to tagList*/
+const tagsParams = calculateTagsParams(allTags);
+console.log('tagsParams:', tagsParams);
+let allTagsHTML = '';
+
+for(let tag in allTags){
+const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + '</a></li>';
+console.log('tagLinkHTML:', tagLinkHTML);
+allTagsHTML += tagLinkHTML;
+/*tag + ' (' + allTags[tag] + ') ';*/
+/*allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ')</a></li>'*/
+}
+
+tagList.innerHTML = allTagsHTML;
 }
 
 generateTags();
