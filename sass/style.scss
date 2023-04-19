@@ -109,6 +109,7 @@ body {
 }
 
 .post-author {
+  list-style-type: none;
   font-style: italic;
 }
 
@@ -117,4 +118,40 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
+
+  /* Tag Size */
+.tag-size-1 {
+  font-size: 120%;
+  color: rgb(0, 255, 17);
+}
+
+.tag-size-2 {
+  font-size: 140%;
+  color: rgb(0, 0, 0);
+}
+
+.tag-size-3 {
+  font-size: 160%;
+  color: rgb(234, 0, 255);
+}
+
+.tag-size-4 {
+  font-size: 180%;
+  color: rgb(0, 30, 255);
+}
+
+.tag-size-5 {
+  font-size: 200%;
+  color: red;
+}
+
+.author-size-1 {
+  font-size: 100%;
+  color: rgb(119, 3, 243);
+}
+
+.author-size-2 {
+  font-size: 120%;
+  color: green;
 }
