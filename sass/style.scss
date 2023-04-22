@@ -115,12 +115,21 @@ body {
 
 .post-tags {
   display: flex;
+
   p {
     margin: 0 10px 0 0;
   }
 }
 
-  /* Tag Size */
+a {
+  text-decoration: none;
+}
+
+[class^="tag-size-"] {
+  display: inline;
+}
+
+ /* Tag Size */
 .tag-size-1 {
   font-size: 120%;
   color: rgb(0, 255, 17);
