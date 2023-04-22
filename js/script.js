@@ -242,7 +242,14 @@ function generateTags(){
   tagList.innerHTML = templates.tagCloudLink(allTagsData); //tagList.innerHTML = allTagsHTML;
   //tagList.innerHTML = allTags.join(' ');
   console.log(allTagsData);
-
+  
+  const style = document.createElement('style');
+style.innerHTML = `
+  [class^="tag-size-"] {
+    display: inline-block;
+  }
+`;
+document.head.appendChild(style);
 }
 generateTags();
 

@@ -125,8 +125,8 @@ a {
   text-decoration: none;
 }
 
-[class^="tag-size-"] {
-  display: inline;
+.list.tags li {
+  display: inline-block;
 }
 
  /* Tag Size */
